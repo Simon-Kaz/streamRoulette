@@ -22,8 +22,6 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
-import static org.simonsays.strimroulette.R.id.fab;
-
 public class MainActivity extends AppCompatActivity {
 
     /**

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:EMVideoView="http://schemas.android.com/apk/res-auto"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_stream"
@@ -7,6 +9,29 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.simonsays.strimroulette.StreamActivity"
-    tools:showIn="@layout/activity_stream">
+    tools:showIn="@layout/activity_stream"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:text="Title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:id="@+id/title_textView"
+        app:layout_constraintLeft_toLeftOf="@+id/content_stream"
+        android:layout_marginStart="16dp"
+        tools:layout_constraintLeft_creator="0"
+        app:layout_constraintTop_toTopOf="@+id/content_stream"
+        android:layout_marginTop="16dp"
+        tools:layout_constraintTop_creator="0" />
+
+
+    <com.devbrackets.android.exomedia.EMVideoView
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        EMVideoView:defaultControlsEnabled="true"/>
 
 </android.support.constraint.ConstraintLayout>
