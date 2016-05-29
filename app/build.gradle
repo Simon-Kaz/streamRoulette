@@ -5,6 +5,9 @@ repositories {
 }
 
 android {
+    lintOptions {
+        abortOnError false
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
@@ -30,7 +33,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
     // exoMedia - wrapper for ExoPlayer
     compile 'com.devbrackets.android:exomedia:2.5.6'
-
+    compile 'com.google.code.gson:gson:2.6.2'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'

@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.simonsays.strimroulette.CountFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/count_fragment_title" />
+
+    <RadioGroup
+        android:id="@+id/stream_count_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/stream_count_top_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"/>
+        <RadioButton
+            android:id="@+id/stream_count_top_200"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200"/>
+        <RadioButton
+            android:id="@+id/stream_count_top_300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300"/>
+        <RadioButton
+            android:id="@+id/stream_count_top_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500"/>
+        <RadioButton
+            android:id="@+id/stream_count_top_1000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"/>
+    </RadioGroup>
+
+</FrameLayout>
