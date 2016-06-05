@@ -29,10 +29,14 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         httpUtils = new HttpUtils();
 
         EMVideoView emVideoView = (EMVideoView) findViewById(R.id.video_player);
-        emVideoView.setOnPreparedListener(this);
+        if (emVideoView != null) {
+            emVideoView.setOnPreparedListener(this);
+        }
 
         try {
-            emVideoView.setVideoPath(new GetStreamURLTask().execute().get());
+            if (emVideoView != null) {
+                emVideoView.setVideoPath(new GetStreamURLTask().execute().get());
+            }
         } catch (InterruptedException | ExecutionException e) {
             Log.e(DEBUG_TAG, e.getMessage());
             e.printStackTrace();
@@ -52,7 +56,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private class GetStreamURLTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... url) {
-            return httpUtils.getStrim();
+            return httpUtils.getRandomStrim();
         }
 
         // onPostExecute displays the results of the AsyncTask.

@@ -1,18 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context="org.simonsays.strimroulette.CountFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/count_fragment_title" />
 
     <RadioGroup
         android:id="@+id/stream_count_group"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <RadioButton
+            android:id="@+id/stream_count_top_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50"/>
 
         <RadioButton
             android:id="@+id/stream_count_top_100"
@@ -39,6 +48,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1000"/>
+
     </RadioGroup>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Channel types:"/>
+    <CheckBox
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Followed"/>
+
+    <CheckBox
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Featured"/>
+
+</LinearLayout>
