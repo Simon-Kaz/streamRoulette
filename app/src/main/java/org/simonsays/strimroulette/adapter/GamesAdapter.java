@@ -1,4 +1,4 @@
-package org.simonsays.strimroulette;
+package org.simonsays.strimroulette.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.simonsays.strimroulette.model.Game;
+import org.simonsays.strimroulette.R;
 
 import java.util.List;
 

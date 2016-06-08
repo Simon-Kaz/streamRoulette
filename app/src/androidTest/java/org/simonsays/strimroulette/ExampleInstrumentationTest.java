@@ -30,20 +30,4 @@ public class ExampleInstrumentationTest {
 
         assertEquals("org.simonsays.strimroulette", appContext.getPackageName());
     }
-//    @Test
-//    public void httpUtilsTest(){
-//        HttpUtils httpUtils = new HttpUtils();
-//        JSONObject jsonObject = httpUtils.getTopStream();
-//        try {
-//            JSONArray jsonArray = jsonObject.getJSONArray("streams");
-//            JSONObject firstStream = jsonArray.getJSONObject(0);
-//            Long viewers = firstStream.getLong("viewers");
-//            String game = firstStream.getString("game");
-//            JSONObject channel = firstStream.getJSONObject("channel");
-//            String streamTitle = channel.getString("status");
-//            System.out.println(viewers + " - " + game  + " - "+ streamTitle);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

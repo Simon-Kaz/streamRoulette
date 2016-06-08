@@ -1,4 +1,4 @@
-package org.simonsays.strimroulette;
+package org.simonsays.strimroulette.model;
 
 /**
  * Created by szymonkaz on 29/05/2016.

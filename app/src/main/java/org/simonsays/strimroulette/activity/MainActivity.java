@@ -1,11 +1,7 @@
-package org.simonsays.strimroulette;
+package org.simonsays.strimroulette.activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -18,22 +14,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
-import com.crashlytics.android.Crashlytics;
 
-import org.json.JSONObject;
+import org.simonsays.strimroulette.fragment.CountFragment;
+import org.simonsays.strimroulette.fragment.GamesFragment;
+import org.simonsays.strimroulette.R;
 import org.simonsays.strimroulette.utils.http.HttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 

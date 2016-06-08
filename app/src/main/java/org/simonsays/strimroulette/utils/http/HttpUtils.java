@@ -28,14 +28,14 @@ public class HttpUtils {
     private JSONObject responseObject;
 
 
-    public String getStrim() {
+    public String getStream() {
         JSONObject topStreamObj = getTopStream();
         String streamName = getStreamName(topStreamObj);
         Log.d(DEBUG_TAG, "STREAM NAME: " + streamName);
         return getStreamUrl(streamName);
     }
 
-    public String getRandomStrim() {
+    public String getRandomStream() {
         JSONObject randomStreamObject = getSpecificStream(getRandomNumberWithMax(10000));
         String streamName = getStreamName(randomStreamObject);
         Log.d(DEBUG_TAG, "STREAM NAME: " + streamName);

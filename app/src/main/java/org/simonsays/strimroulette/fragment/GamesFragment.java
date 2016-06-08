@@ -1,4 +1,4 @@
-package org.simonsays.strimroulette;
+package org.simonsays.strimroulette.fragment;
 
 
 import android.content.res.Resources;
@@ -13,6 +13,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.simonsays.strimroulette.R;
+import org.simonsays.strimroulette.adapter.GamesAdapter;
+import org.simonsays.strimroulette.model.Game;
 
 import java.util.ArrayList;
 import java.util.List;
