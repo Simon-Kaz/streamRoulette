@@ -43,9 +43,6 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private List<GameOverview> gameOverviewList;
     private ArrayList<GameOverview.GameDetails> gameDetailsList;
 
-    private boolean pausedOnStop = false;
-    private boolean mIsFinished = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +52,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         httpUtils = new HttpUtils();
 
-        EMVideoView emVideoView = (EMVideoView) findViewById(R.id.video_player);
+        emVideoView = (EMVideoView) findViewById(R.id.video_player);
         emVideoView.setOnPreparedListener(this);
         try {
             int rand = getRandomNumberWithMax(2500);
@@ -90,7 +87,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                     // store response body in result
                     TopStreamsResp result = response.body();
-                    Log.d("MainActivity", "RESULT = " + new Gson().toJson(result));
+                    Log.d(DEBUG_TAG, "FIRST CALL RESULT = " + new Gson().toJson(result));
 
                     // get first (only expecting one) Stream object
                     Stream streamResult = result.getStream(0);
@@ -114,7 +111,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                             if (response.isSuccessful()) {
                                 AccessTokenResp accessTokenResp = response.body();
-                                Log.d("MainActivity", "response = " + new Gson().toJson(accessTokenResp));
+                                Log.d(DEBUG_TAG, "SECOND CALL RESULT = " + new Gson().toJson(accessTokenResp));
                                 String sig = accessTokenResp.sig;
                                 String token = accessTokenResp.token;
 
@@ -126,13 +123,12 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
                                 }
 
                                 String streamURL = String.format("http://usher.twitch.tv/api/channel/hls/%1s.m3u8?token=%2s&sig=%3s", channelName, token, sig);
-                                Log.d("MainActivity", streamURL);
+                                Log.d(DEBUG_TAG, "FINAL URL: " + streamURL);
                                 final TextView textView3 = (TextView) findViewById(R.id.channel_name_textView);
                                 textView3.setText(streamURL);
 
-                                if (emVideoView != null) {
-                                    emVideoView.setVideoPath(streamURL);
-                                }
+                                emVideoView.setVideoPath(streamURL);
+
 
                             } else {
                                 showErrorSnackbar();
