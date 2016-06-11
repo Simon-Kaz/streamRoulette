@@ -4,15 +4,11 @@ import org.simonsays.strimroulette.model.AccessTokenResp;
 import org.simonsays.strimroulette.model.TopGamesResp;
 import org.simonsays.strimroulette.model.TopStreamsResp;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by szymonkaz on 07/06/16.
- */
 public interface TwitchService {
 
     // get stream data for specified channel

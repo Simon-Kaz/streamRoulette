@@ -91,12 +91,18 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                     // get first (only expecting one) Stream object
                     Stream streamResult = result.getStream(0);
-                    final TextView textView = (TextView) findViewById(R.id.title_textView);
-                    textView.setText(streamResult.toString());
+                    final TextView textView = (TextView) findViewById(R.id.game_title_textView);
+                    textView.setText(streamResult.game);
 
                     Stream.Channel channelResult = streamResult.getChannel();
-                    final TextView textView2 = (TextView) findViewById(R.id.game_title_textView);
-                    textView2.setText(channelResult.toString());
+                    final TextView textView2 = (TextView) findViewById(R.id.title_textView);
+                    textView2.setText(channelResult.status);
+
+                    final TextView textView3 = (TextView) findViewById(R.id.channel_name_textView);
+                    textView3.setText(channelResult.display_name);
+
+                    final TextView textView4 = (TextView) findViewById(R.id.viewer_count_textView);
+                    textView4.setText("Current Viewers: " + streamResult.viewers);
 
                     final String channelName = channelResult.name;
 
@@ -124,8 +130,6 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                                 String streamURL = String.format("http://usher.twitch.tv/api/channel/hls/%1s.m3u8?token=%2s&sig=%3s", channelName, token, sig);
                                 Log.d(DEBUG_TAG, "FINAL URL: " + streamURL);
-                                final TextView textView3 = (TextView) findViewById(R.id.channel_name_textView);
-                                textView3.setText(streamURL);
 
                                 emVideoView.setVideoPath(streamURL);
 

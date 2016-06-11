@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         android:textSize="@dimen/stream_title_size"
-        android:text="Doin The Do - Twitter: @LIRIK - Store: dbh.la/lirik" />
+        android:text="Game Title" />
 
     <TextView
         android:id="@+id/channel_name_textView"
@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         android:textSize="@dimen/channel_name_size"
-        android:text="LIRIK" />
+        android:text="Streamer's Name" />
 
     <TextView
         android:id="@+id/game_title_textView"
