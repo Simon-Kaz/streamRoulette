@@ -25,8 +25,6 @@ import org.simonsays.strimroulette.utils.http.HttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -40,8 +38,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private HttpUtils httpUtils;
 
     private ProgressBar progressBar;
-    private List<GameOverview> gameOverviewList;
-    private ArrayList<GameOverview.GameDetails> gameDetailsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         emVideoView = (EMVideoView) findViewById(R.id.video_player);
         emVideoView.setOnPreparedListener(this);
         try {
-            int rand = getRandomNumberWithMax(2500);
+            int rand = getRandomNumberWithMax(2000);
             chainedCallExample(rand);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, e.getMessage());
@@ -75,7 +72,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
         final TwitchService twitchService = ApiClient.getClient().create(TwitchService.class);
         final Call<TopStreamsResp> streamDataCall =
-                twitchService.specificStreamResp(randNumber);
+                twitchService.specificStreamResp(randNumber, null);
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);

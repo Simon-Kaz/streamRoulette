@@ -20,7 +20,8 @@ public interface TwitchService {
     // get stream data for stream using offset
     @GET("streams?limit=1")
     Call<TopStreamsResp> specificStreamResp(
-            @Query("offset") int offset
+            @Query("offset") int offset,
+            @Query("language") String language
     );
 
     // get top games (max viewers DESC)
