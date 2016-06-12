@@ -22,6 +22,7 @@
         <activity
             android:name=".activity.StreamActivity"
             android:label="@string/title_activity_stream"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
