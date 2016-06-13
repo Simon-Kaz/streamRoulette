@@ -1,6 +1,7 @@
 package org.simonsays.strimroulette.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -37,8 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private HttpUtils httpUtils;
     private int[] tabIcons = {
-            R.drawable.ic_tab_games,
-            R.drawable.ic_tab_count
+            R.drawable.ic_videogame_asset,
+            R.drawable.ic_settings_applications
+    };
+
+    private String[] tabTitles = {
+            "GAMES",
+            "COUNT"
     };
 
     @Override
@@ -66,15 +74,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupTabIcons() {
-        TextView gamesTab = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        gamesTab.setText(getString(R.string.games_tab_title));
-        gamesTab.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_games, 0, 0);
+        RelativeLayout gamesTab = getRelativeLayout(tabTitles[0], tabIcons[0]);
         tabLayout.getTabAt(0).setCustomView(gamesTab);
 
-        TextView countTab = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        countTab.setText(getString(R.string.count_tab_title));
-        countTab.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_count, 0, 0);
+        RelativeLayout countTab = getRelativeLayout(tabTitles[1], tabIcons[1]);
         tabLayout.getTabAt(1).setCustomView(countTab);
+    }
+
+    @NonNull
+    private RelativeLayout getRelativeLayout(String text, int imageResource) {
+        RelativeLayout countTab = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+
+        ImageView icon = (ImageView) countTab.findViewById(R.id.tab_img);
+        TextView title = (TextView) countTab.findViewById(R.id.tab_text);
+
+        icon.setImageResource(imageResource);
+        title.setText(text);
+        return countTab;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
