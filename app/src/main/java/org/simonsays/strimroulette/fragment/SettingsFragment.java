@@ -18,13 +18,13 @@ import org.simonsays.strimroulette.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CountFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
     TextView seekbar_textView;
     SeekBar seekBar;
 
 
-    public CountFragment() {
+    public SettingsFragment() {
         // Required empty public constructor
     }
 
@@ -33,7 +33,7 @@ public class CountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_count, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setupLanguagesSpinner(rootView);
         setupSeekBar(rootView);
 

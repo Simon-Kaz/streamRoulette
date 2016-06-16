@@ -5,11 +5,12 @@
     <string name="title_activity_stream">StreamActivity</string>
     <string name="count_fragment_title">Select the max number of streams:</string>
     <string name="games_tab_title">GAMES</string>
-    <string name="count_tab_title">STREAM COUNT</string>
+    <string name="settings_tab_title">SETTINGS</string>
 
     <!--CardView-->
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_play_next">Play Next</string>
     <string name="backdrop_title">LOVE MUSIC</string>
     <string name="backdrop_subtitle">This season top 20 albums</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

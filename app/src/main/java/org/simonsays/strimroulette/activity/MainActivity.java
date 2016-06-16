@@ -1,6 +1,7 @@
 package org.simonsays.strimroulette.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,12 +16,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
 
-import org.simonsays.strimroulette.fragment.CountFragment;
+import org.simonsays.strimroulette.fragment.SettingsFragment;
 import org.simonsays.strimroulette.fragment.GamesFragment;
 import org.simonsays.strimroulette.R;
 import org.simonsays.strimroulette.utils.http.HttpUtils;
@@ -37,8 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private HttpUtils httpUtils;
     private int[] tabIcons = {
-            R.drawable.ic_tab_games,
-            R.drawable.ic_tab_count
+            R.drawable.ic_videogame_asset,
+            R.drawable.ic_settings_applications
+    };
+
+    private String[] tabTitles = {
+            "GAMES",
+            "SETTINGS"
     };
 
     @Override
@@ -46,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+    private void initViews(){
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -61,21 +69,30 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new GamesFragment(), getString(R.string.games_tab_title));
-        adapter.addFragment(new CountFragment(), getString(R.string.count_tab_title));
+        adapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
         viewPager.setAdapter(adapter);
     }
 
     private void setupTabIcons() {
-        TextView gamesTab = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        gamesTab.setText(getString(R.string.games_tab_title));
-        gamesTab.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_games, 0, 0);
+        RelativeLayout gamesTab = getRelativeLayout(tabTitles[0], tabIcons[0]);
         tabLayout.getTabAt(0).setCustomView(gamesTab);
 
-        TextView countTab = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        countTab.setText(getString(R.string.count_tab_title));
-        countTab.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_tab_count, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(countTab);
+        RelativeLayout settingsTab = getRelativeLayout(tabTitles[1], tabIcons[1]);
+        tabLayout.getTabAt(1).setCustomView(settingsTab);
     }
+
+    @NonNull
+    private RelativeLayout getRelativeLayout(String text, int imageResource) {
+        RelativeLayout countTab = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+
+        ImageView icon = (ImageView) countTab.findViewById(R.id.tab_img);
+        TextView title = (TextView) countTab.findViewById(R.id.tab_text);
+
+        icon.setImageResource(imageResource);
+        title.setText(text);
+        return countTab;
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

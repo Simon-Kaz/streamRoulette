@@ -7,21 +7,23 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.devbrackets.android.exomedia.EMVideoView;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.simonsays.strimroulette.R;
 import org.simonsays.strimroulette.model.AccessTokenResp;
-import org.simonsays.strimroulette.model.GameOverview;
 import org.simonsays.strimroulette.model.Stream;
 import org.simonsays.strimroulette.model.TopStreamsResp;
 import org.simonsays.strimroulette.rest.ApiClient;
 import org.simonsays.strimroulette.rest.TwitchService;
-import org.simonsays.strimroulette.utils.http.HttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -35,19 +37,24 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
     private static final String DEBUG_TAG = StreamActivity.class.getSimpleName();
     private EMVideoView emVideoView;
-    private HttpUtils httpUtils;
-
+    private Toolbar toolbar;
+    private TextView viewer_count_textView;
+    private TextView channel_name_textView;
+    private TextView game_title_textView;
+    private TextView stream_title_textView;
     private ProgressBar progressBar;
+    private ImageView channel_logo_imageView;
+    private ImageView game_logo_imageView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stream);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Loading...");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        httpUtils = new HttpUtils();
 
         emVideoView = (EMVideoView) findViewById(R.id.video_player);
         emVideoView.setOnPreparedListener(this);
@@ -58,6 +65,28 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
             Log.e(DEBUG_TAG, e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_stream, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            try {
+                int rand = getRandomNumberWithMax(2000);
+                chainedCallExample(rand);
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -72,7 +101,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
         final TwitchService twitchService = ApiClient.getClient().create(TwitchService.class);
         final Call<TopStreamsResp> streamDataCall =
-                twitchService.specificStreamResp(randNumber, null);
+                twitchService.specificStreamResp(randNumber, "en");
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
@@ -88,25 +117,32 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                     // get first (only expecting one) Stream object
                     Stream streamResult = result.getStream(0);
-                    final TextView textView = (TextView) findViewById(R.id.game_title_textView);
-                    textView.setText(streamResult.game);
+                    game_title_textView = (TextView) findViewById(R.id.game_title_textView);
+                    game_title_textView.setText(streamResult.game);
 
                     Stream.Channel channelResult = streamResult.getChannel();
-                    final TextView textView2 = (TextView) findViewById(R.id.title_textView);
-                    textView2.setText(channelResult.status);
+                    stream_title_textView = (TextView) findViewById(R.id.title_textView);
+                    stream_title_textView.setText(channelResult.status);
 
-                    final TextView textView3 = (TextView) findViewById(R.id.channel_name_textView);
-                    textView3.setText(channelResult.display_name);
+                    channel_name_textView = (TextView) findViewById(R.id.channel_name_textView);
+                    channel_name_textView.setText(channelResult.display_name);
+                    toolbar.setTitle(channelResult.display_name);
 
-                    final TextView textView4 = (TextView) findViewById(R.id.viewer_count_textView);
-                    textView4.setText("Current Viewers: " + streamResult.viewers);
+                    viewer_count_textView = (TextView) findViewById(R.id.viewer_count_textView);
+                    viewer_count_textView.setText(streamResult.viewers.toString());
 
+                    channel_logo_imageView = (ImageView) findViewById(R.id.channel_logo);
+                    Picasso
+                            .with(getApplicationContext())
+                            .load(channelResult.logo)
+                            .fit()
+                            .into(channel_logo_imageView);
+
+                    //get stream url
                     final String channelName = channelResult.name;
-
                     final Call<AccessTokenResp> accessTokenCall =
                             twitchService.accessTokenResp(channelName);
 
-                    // get stream url
                     accessTokenCall.enqueue(new Callback<AccessTokenResp>() {
                         @Override
                         public void onResponse(Call<AccessTokenResp> call, Response<AccessTokenResp> response) {

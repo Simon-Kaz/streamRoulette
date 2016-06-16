@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_width="@dimen/game_cover_width"
+    android:layout_height="@dimen/game_cover_height"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="@dimen/card_album_radius">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="@dimen/card_album_radius">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/thumbnail"
@@ -20,60 +19,92 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <!--Gradient-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bottom_gradient_image"
+            android:orientation="horizontal" />
 
-            <!--Gradient-->
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/game_cover_height"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/gradient_image"
-                android:orientation="horizontal">
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/game_details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/game_title_padding"
-                android:paddingLeft="@dimen/game_title_padding"
-                android:paddingRight="@dimen/game_title_padding"
-                android:paddingTop="@dimen/game_title_padding"
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/game_title"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true" />
+                android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
+                <ImageView
+                    android:id="@+id/channel_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_channel" />
 
                 <TextView
                     android:id="@+id/channel_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/songs_count_padding_bottom"
-                    android:paddingLeft="@dimen/game_title_padding"
-                    android:paddingRight="@dimen/game_title_padding"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/channel_icon"
+                    android:text="channels live"
                     android:textColor="@color/colorText"
-                    android:textSize="@dimen/count_size" />
+                    android:textSize="@dimen/game_card_text_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/viewer_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_viewer" />
 
                 <TextView
                     android:id="@+id/viewer_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/songs_count_padding_bottom"
-                    android:paddingLeft="@dimen/game_title_padding"
-                    android:paddingRight="@dimen/game_title_padding"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/viewer_icon"
+                    android:text="channels live"
                     android:textColor="@color/colorText"
-                    android:textSize="@dimen/count_size" />
-            </LinearLayout>
+                    android:textSize="@dimen/game_card_text_size" />
+            </RelativeLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/game_details_layout"
+            android:elevation="4dp"
+            android:paddingBottom="@dimen/game_title_padding"
+            android:layout_marginStart="7dp"
+            android:paddingRight="@dimen/game_title_padding"
+            android:paddingTop="@dimen/game_title_padding"
+            android:text=""
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/game_title"
+            android:textStyle="bold" />
 
-</LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

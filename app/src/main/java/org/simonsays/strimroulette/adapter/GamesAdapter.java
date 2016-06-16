@@ -54,8 +54,8 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Game game = gameList.get(position);
         holder.title.setText(game.getName());
-        holder.viewerCount.setText(game.getNumOfViewers() + " viewers");
-        holder.channelCount.setText(game.getNumOfChannels() + " channels");
+        holder.viewerCount.setText(String.valueOf(game.getNumOfViewers()));
+        holder.channelCount.setText(String.valueOf(game.getNumOfChannels()));
 
         Picasso
                 .with(mContext)

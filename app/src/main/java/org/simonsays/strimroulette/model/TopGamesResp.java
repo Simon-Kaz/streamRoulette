@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by szymonkaz on 07/06/16.
- */
 public class TopGamesResp {
 
     public Integer _total;
