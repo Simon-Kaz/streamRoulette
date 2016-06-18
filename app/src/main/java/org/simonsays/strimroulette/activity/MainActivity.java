@@ -1,45 +1,40 @@
 package org.simonsays.strimroulette.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 
-import io.fabric.sdk.android.Fabric;
-
-import org.simonsays.strimroulette.fragment.SettingsFragment;
-import org.simonsays.strimroulette.fragment.GamesFragment;
 import org.simonsays.strimroulette.R;
-import org.simonsays.strimroulette.utils.http.HttpUtils;
+import org.simonsays.strimroulette.fragment.GamesFragment;
+import org.simonsays.strimroulette.fragment.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
     // number of tabs
     private static final int NUM_ITEMS = 2;
-    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private HttpUtils httpUtils;
+
     private int[] tabIcons = {
             R.drawable.ic_videogame_asset,
             R.drawable.ic_settings_applications
@@ -55,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+        initViews();
     }
 
-    private void initViews(){
+    private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 

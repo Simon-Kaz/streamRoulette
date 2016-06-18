@@ -8,12 +8,12 @@ public class Game {
     private String name;
     private int numOfViewers;
     private int numOfChannels;
-    private int thumbnail;
+    private String thumbnail;
 
     public Game(){
     }
 
-    public Game(String name, int numOfViewers, int numOfChannels, int thumbnail) {
+    public Game(String name, int numOfViewers, int numOfChannels, String thumbnail) {
         this.name = name;
         this.numOfViewers = numOfViewers;
         this.numOfChannels = numOfChannels;
@@ -32,7 +32,7 @@ public class Game {
         return numOfChannels;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
@@ -48,7 +48,7 @@ public class Game {
         this.numOfChannels = numOfChannels;
     }
 
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 }

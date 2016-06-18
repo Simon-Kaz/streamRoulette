@@ -26,7 +26,9 @@ public interface TwitchService {
 
     // get top games (max viewers DESC)
     @GET("games/top")
-    Call<TopGamesResp> topGamesResp();
+    Call<TopGamesResp> topGamesResp(
+            @Query("limit") int limit
+    );
 
     // get access token for video streaming
     @GET("http://api.twitch.tv/api/channels/{channel}/access_token")

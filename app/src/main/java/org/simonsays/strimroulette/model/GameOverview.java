@@ -2,9 +2,6 @@ package org.simonsays.strimroulette.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by szymonkaz on 07/06/16.
- */
 public class GameOverview {
 
     public Integer viewers;
@@ -25,33 +22,15 @@ public class GameOverview {
         this.gameDetails = gameDetails;
     }
 
-    public class GameDetails {
-
-        public String name;
-
-        @SerializedName("box")
-        public Box box;
-
-        @SerializedName("logo")
-        public Logo logo;
-
+    public Integer getViewers() {
+        return viewers;
     }
 
-    public class Box {
-
-        public String large;
-        public String medium;
-        public String small;
-        public String template;
-
+    public Integer getChannels() {
+        return channels;
     }
 
-    public class Logo {
-
-        public String large;
-        public String medium;
-        public String small;
-        public String template;
-
+    public GameDetails getGameDetails() {
+        return gameDetails;
     }
 }
