@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ import org.simonsays.strimroulette.rest.TwitchService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -44,7 +47,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private TextView stream_title_textView;
     private ProgressBar progressBar;
     private ImageView channel_logo_imageView;
-    private ImageView game_logo_imageView;
+    private ArrayList<String> likedList;
 
 
     @Override
@@ -55,6 +58,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         setSupportActionBar(toolbar);
         toolbar.setTitle("Loading...");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        likedList = new ArrayList<>();
 
         emVideoView = (EMVideoView) findViewById(R.id.video_player);
         emVideoView.setOnPreparedListener(this);
@@ -87,7 +91,13 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
             }
         }
         if (id == R.id.action_like) {
-            return true;
+            String channelName = (String) channel_name_textView.getText();
+            if (likedList.contains(channelName)) {
+                showChannelAlreadyAddedSnackbar();
+            } else {
+                likedList.add(channelName);
+                showAddedToLikedSnackbar();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -199,6 +209,18 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private void showErrorSnackbar() {
         Snackbar.make(findViewById(android.R.id.content), "Request failed", Snackbar.LENGTH_LONG)
                 .setActionTextColor(Color.RED)
+                .show();
+    }
+
+    private void showAddedToLikedSnackbar() {
+        Snackbar.make(findViewById(android.R.id.content), "Channel added to Liked List!", Snackbar.LENGTH_LONG)
+                .setActionTextColor(Color.GREEN)
+                .show();
+    }
+
+    private void showChannelAlreadyAddedSnackbar() {
+        Snackbar.make(findViewById(android.R.id.content), "Channel already in the Liked List!", Snackbar.LENGTH_LONG)
+                .setActionTextColor(Color.GREEN)
                 .show();
     }
 
