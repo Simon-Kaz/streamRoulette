@@ -86,6 +86,9 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
                 e.printStackTrace();
             }
         }
+        if (id == R.id.action_like) {
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

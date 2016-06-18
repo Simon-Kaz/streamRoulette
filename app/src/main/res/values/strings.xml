@@ -13,4 +13,5 @@
     <string name="backdrop_title">LOVE MUSIC</string>
     <string name="backdrop_subtitle">This season top 20 albums</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_like">Like</string>
 </resources>
