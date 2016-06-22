@@ -16,101 +16,18 @@
         android:layout_height="232dp"
         EMVideoView:defaultControlsEnabled="false" />
 
-    <TextView
-        android:id="@+id/title_textView"
-        style="@style/TitleText"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="@dimen/spacing_medium"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:text="Stream Title" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/game_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_tab_games" />
-
-        <TextView
-            android:id="@+id/game_title_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/spacing_small"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_toRightOf="@id/game_icon"
-            android:text="GameTitle"
-            android:textSize="@dimen/text_medium" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/viewer_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_viewer" />
-
-        <TextView
-            android:id="@+id/viewer_count_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/spacing_small"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_toRightOf="@id/viewer_icon"
-            android:text="Viewer Count"
-            android:textSize="@dimen/text_medium" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
+    <ProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/channel_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:background="@android:color/white" />
-
-        <TextView
-            android:id="@+id/channel_name_textView"
-            style="@style/TitleText"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/channel_logo"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_toRightOf="@id/channel_logo"
-            android:text="Streamer's Name"
-            android:textSize="@dimen/text_extra_large" />
-
-        <ImageView
-            android:id="@+id/game_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/darker_gray" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/stream_info"
+        layout="@layout/fragment_stream_info"
+        android:visibility="invisible" />
 
 </LinearLayout>

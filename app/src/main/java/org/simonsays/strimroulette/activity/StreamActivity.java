@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,7 +29,6 @@ import org.simonsays.strimroulette.rest.TwitchService;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -48,6 +47,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
     private ProgressBar progressBar;
     private ImageView channel_logo_imageView;
     private ArrayList<String> likedList;
+    private LinearLayout streamInfo;
 
 
     @Override
@@ -59,12 +59,13 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         toolbar.setTitle("Loading...");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         likedList = new ArrayList<>();
+        streamInfo = (LinearLayout) findViewById(R.id.stream_info);
 
         emVideoView = (EMVideoView) findViewById(R.id.video_player);
         emVideoView.setOnPreparedListener(this);
         try {
             int rand = getRandomNumberWithMax(2000);
-            chainedCallExample(rand);
+            getChannelData(rand);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, e.getMessage());
             e.printStackTrace();
@@ -84,7 +85,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         if (id == R.id.action_refresh) {
             try {
                 int rand = getRandomNumberWithMax(2000);
-                chainedCallExample(rand);
+                getChannelData(rand);
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, e.getMessage());
                 e.printStackTrace();
@@ -107,16 +108,17 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         progressBar.setVisibility(View.GONE);
         emVideoView.requestFocus();
         emVideoView.start();
-        Log.d(DEBUG_TAG, String.valueOf(emVideoView.getVideoUri()));
     }
 
-    public void chainedCallExample(int randNumber) {
+    public void getChannelData(int randNumber) {
 
         final TwitchService twitchService = ApiClient.getClient().create(TwitchService.class);
         final Call<TopStreamsResp> streamDataCall =
                 twitchService.specificStreamResp(randNumber, "en");
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        // hide stream info, show progress bar
+        streamInfo.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
 
         streamDataCall.enqueue(new Callback<TopStreamsResp>() {
@@ -126,7 +128,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                     // store response body in result
                     TopStreamsResp result = response.body();
-                    Log.d(DEBUG_TAG, "FIRST CALL RESULT = " + new Gson().toJson(result));
+                    Log.d(DEBUG_TAG, "Stream Data Call Result= " + new Gson().toJson(result));
 
                     // get first (only expecting one) Stream object
                     Stream streamResult = result.getStream(0);
@@ -163,7 +165,7 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
 
                             if (response.isSuccessful()) {
                                 AccessTokenResp accessTokenResp = response.body();
-                                Log.d(DEBUG_TAG, "SECOND CALL RESULT = " + new Gson().toJson(accessTokenResp));
+                                Log.d(DEBUG_TAG, "Access Token Call Result= " + new Gson().toJson(accessTokenResp));
                                 String sig = accessTokenResp.sig;
                                 String token = accessTokenResp.token;
 
@@ -175,10 +177,10 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
                                 }
 
                                 String streamURL = String.format("http://usher.twitch.tv/api/channel/hls/%1s.m3u8?token=%2s&sig=%3s", channelName, token, sig);
-                                Log.d(DEBUG_TAG, "FINAL URL: " + streamURL);
+                                Log.d(DEBUG_TAG, "FINAL video url: " + streamURL);
 
                                 emVideoView.setVideoPath(streamURL);
-
+                                streamInfo.setVisibility(View.VISIBLE);
 
                             } else {
                                 showErrorSnackbar();
@@ -228,4 +230,16 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         Random r = new Random();
         return r.nextInt(max);
     }
+
+    private void enterFullscreenVideo() {
+        emVideoView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+    }
+
 }
