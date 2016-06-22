@@ -15,7 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.devbrackets.android.exomedia.EMVideoView;
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
+public class StreamActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = StreamActivity.class.getSimpleName();
     private EMVideoView emVideoView;
@@ -62,7 +63,15 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
         streamInfo = (LinearLayout) findViewById(R.id.stream_info);
 
         emVideoView = (EMVideoView) findViewById(R.id.video_player);
-        emVideoView.setOnPreparedListener(this);
+        emVideoView.setOnPreparedListener(new OnPreparedListener() {
+            @Override
+            public void onPrepared() {
+                progressBar.setVisibility(View.GONE);
+                emVideoView.requestFocus();
+                emVideoView.start();
+            }
+        });
+
         try {
             int rand = getRandomNumberWithMax(2000);
             getChannelData(rand);
@@ -101,13 +110,6 @@ public class StreamActivity extends AppCompatActivity implements MediaPlayer.OnP
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mp) {
-        progressBar.setVisibility(View.GONE);
-        emVideoView.requestFocus();
-        emVideoView.start();
     }
 
     public void getChannelData(int randNumber) {

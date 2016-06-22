@@ -10,18 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
-    <com.devbrackets.android.exomedia.EMVideoView
+    <com.devbrackets.android.exomedia.ui.widget.EMVideoView
         android:id="@+id/video_player"
         android:layout_width="match_parent"
         android:layout_height="232dp"
-        EMVideoView:defaultControlsEnabled="false" />
+        EMVideoView:useDefaultControls="false" />
+
 
     <ProgressBar
-        android:layout_gravity="center"
         android:id="@+id/progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="invisible" />
 
