@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class GameDetails {
 
-    public String name;
+    private String name;
 
     @SerializedName("box")
-    public Box box;
+    private Box box;
 
     @SerializedName("logo")
-    public Logo logo;
+    private Logo logo;
 
     public String getName() {
         return name;

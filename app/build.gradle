@@ -4,11 +4,18 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+
+//Twitch.TV API Key
+def TWITCH_API_KEY = '"' + TwitchApiKey + '"' ?: 'Twitch.TV API Key Not Provided!'
+
+android.buildTypes.each { type ->
+    type.buildConfigField 'String', 'TwitchApiKey', TWITCH_API_KEY
+}
 
 repositories {
     jcenter()
@@ -19,12 +26,12 @@ android {
     lintOptions {
         abortOnError false
     }
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "org.simonsays.strimroulette"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,27 +46,24 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
 
     // CardView
-    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:cardview-v7:25.3.1'
     // RecyclerView
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
 
     //Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
-
-    // exoMedia - wrapper for ExoPlayer
-//    compile 'com.devbrackets.android:exomedia:2.5.6'
-    compile 'com.devbrackets.android:exomedia:3.0.0'
-    compile 'com.google.code.gson:gson:2.6.2'
+    //ExoMedia video player - wrapper for ExoPlayer
+    compile 'com.devbrackets.android:exomedia:3.1.1'
+    compile 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support:support-annotations:24.0.0'
+    androidTestCompile 'com.android.support:support-annotations:25.3.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }

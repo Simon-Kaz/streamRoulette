@@ -1,8 +1,8 @@
 package org.simonsays.strimroulette.activity;
 
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,9 +21,9 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.simonsays.strimroulette.R;
-import org.simonsays.strimroulette.model.AccessTokenResp;
+import org.simonsays.strimroulette.model.AccessTokenResponse;
 import org.simonsays.strimroulette.model.Stream;
-import org.simonsays.strimroulette.model.TopStreamsResp;
+import org.simonsays.strimroulette.model.TopStreamsResponse;
 import org.simonsays.strimroulette.rest.ApiClient;
 import org.simonsays.strimroulette.rest.TwitchService;
 
@@ -115,61 +115,61 @@ public class StreamActivity extends AppCompatActivity {
     public void getChannelData(int randNumber) {
 
         final TwitchService twitchService = ApiClient.getClient().create(TwitchService.class);
-        final Call<TopStreamsResp> streamDataCall =
-                twitchService.specificStreamResp(randNumber, "en");
+        final Call<TopStreamsResponse> streamDataCall =
+                twitchService.specificStreamResponse(randNumber, "en");
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         // hide stream info, show progress bar
         streamInfo.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
 
-        streamDataCall.enqueue(new Callback<TopStreamsResp>() {
+        streamDataCall.enqueue(new Callback<TopStreamsResponse>() {
             @Override
-            public void onResponse(Call<TopStreamsResp> call, Response<TopStreamsResp> response) {
+            public void onResponse(Call<TopStreamsResponse> call, Response<TopStreamsResponse> response) {
                 if (response.isSuccessful()) {
 
                     // store response body in result
-                    TopStreamsResp result = response.body();
+                    TopStreamsResponse result = response.body();
                     Log.d(DEBUG_TAG, "Stream Data Call Result= " + new Gson().toJson(result));
 
-                    // get first (only expecting one) Stream object
-                    Stream streamResult = result.getStream(0);
                     game_title_textView = (TextView) findViewById(R.id.game_title_textView);
-                    game_title_textView.setText(streamResult.game);
-
-                    Stream.Channel channelResult = streamResult.getChannel();
                     stream_title_textView = (TextView) findViewById(R.id.title_textView);
-                    stream_title_textView.setText(channelResult.status);
-
                     channel_name_textView = (TextView) findViewById(R.id.channel_name_textView);
-                    channel_name_textView.setText(channelResult.display_name);
-                    toolbar.setTitle(channelResult.display_name);
-
                     viewer_count_textView = (TextView) findViewById(R.id.viewer_count_textView);
-                    viewer_count_textView.setText(streamResult.viewers.toString());
-
                     channel_logo_imageView = (ImageView) findViewById(R.id.channel_logo);
+
+                    // Grabbing the first stream
+                    Stream streamResult = result.getStream(0);
+                    Stream.Channel channelResult = streamResult.getChannel();
+
+                    game_title_textView.setText(streamResult.getGame());
+                    stream_title_textView.setText(channelResult.getStatus());
+                    channel_name_textView.setText(channelResult.getDisplayName());
+                    toolbar.setTitle(channelResult.getDisplayName());
+                    viewer_count_textView.setText(streamResult.getViewers().toString());
+
                     Picasso
                             .with(getApplicationContext())
-                            .load(channelResult.logo)
+                            .load(channelResult.getLogo())
                             .fit()
                             .into(channel_logo_imageView);
 
                     //get stream url
-                    final String channelName = channelResult.name;
-                    final Call<AccessTokenResp> accessTokenCall =
-                            twitchService.accessTokenResp(channelName);
+                    final String channelName = channelResult.getName();
 
-                    accessTokenCall.enqueue(new Callback<AccessTokenResp>() {
+                    final Call<AccessTokenResponse> accessTokenCall =
+                            twitchService.accessTokenResponse(channelName);
+
+                    accessTokenCall.enqueue(new Callback<AccessTokenResponse>() {
                         @Override
-                        public void onResponse(Call<AccessTokenResp> call, Response<AccessTokenResp> response) {
+                        public void onResponse(Call<AccessTokenResponse> call, Response<AccessTokenResponse> response) {
                             progressBar.setVisibility(View.GONE);
 
                             if (response.isSuccessful()) {
-                                AccessTokenResp accessTokenResp = response.body();
-                                Log.d(DEBUG_TAG, "Access Token Call Result= " + new Gson().toJson(accessTokenResp));
-                                String sig = accessTokenResp.sig;
-                                String token = accessTokenResp.token;
+                                AccessTokenResponse accessTokenResponse = response.body();
+                                Log.d(DEBUG_TAG, "Access Token Call Result= " + new Gson().toJson(accessTokenResponse));
+                                String sig = accessTokenResponse.sig;
+                                String token = accessTokenResponse.token;
 
                                 // URL encode the token
                                 try {
@@ -183,19 +183,17 @@ public class StreamActivity extends AppCompatActivity {
 
                                 emVideoView.setVideoPath(streamURL);
                                 streamInfo.setVisibility(View.VISIBLE);
-
                             } else {
                                 showErrorSnackbar();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<AccessTokenResp> call, Throwable t) {
+                        public void onFailure(Call<AccessTokenResponse> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
                             showErrorSnackbar();
                         }
                     });
-
 
                 } else {
                     showErrorSnackbar();
@@ -203,29 +201,29 @@ public class StreamActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TopStreamsResp> call, Throwable t) {
+            public void onFailure(Call<TopStreamsResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 showErrorSnackbar();
             }
         });
     }
 
-    private void showErrorSnackbar() {
-        Snackbar.make(findViewById(android.R.id.content), "Request failed", Snackbar.LENGTH_LONG)
-                .setActionTextColor(Color.RED)
+    private void createSnackbar(String textToDisplay, @ColorInt int color) {
+        Snackbar.make(findViewById(android.R.id.content), textToDisplay, Snackbar.LENGTH_LONG)
+                .setActionTextColor(color)
                 .show();
+    }
+
+    private void showErrorSnackbar() {
+        createSnackbar("Request Failed", Color.RED);
     }
 
     private void showAddedToLikedSnackbar() {
-        Snackbar.make(findViewById(android.R.id.content), "Channel added to Liked List!", Snackbar.LENGTH_LONG)
-                .setActionTextColor(Color.GREEN)
-                .show();
+        createSnackbar("Channel added to Liked List!", Color.GREEN);
     }
 
     private void showChannelAlreadyAddedSnackbar() {
-        Snackbar.make(findViewById(android.R.id.content), "Channel already in the Liked List!", Snackbar.LENGTH_LONG)
-                .setActionTextColor(Color.GREEN)
-                .show();
+        createSnackbar("Channel already in the Liked List!", Color.GREEN);
     }
 
     private static int getRandomNumberWithMax(int max) {
@@ -243,5 +241,4 @@ public class StreamActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
     }
-
 }

@@ -30,11 +30,11 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, viewerCount, channelCount;
-        public ImageView thumbnail;
+        private TextView title, viewerCount, channelCount;
+        private ImageView thumbnail;
 
 
-        public MyViewHolder(View view) {
+        private MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             viewerCount = (TextView) view.findViewById(R.id.viewer_count);
@@ -53,13 +53,13 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Game game = gameList.get(position);
-        holder.title.setText(game.getName());
-        holder.viewerCount.setText(String.valueOf(game.getNumOfViewers()));
-        holder.channelCount.setText(String.valueOf(game.getNumOfChannels()));
+        holder.title.setText(game.getTitle());
+        holder.viewerCount.setText(String.valueOf(game.getViewerCount()));
+        holder.channelCount.setText(String.valueOf(game.getChannelCount()));
 
         Picasso
                 .with(mContext)
-                .load(game.getThumbnail())
+                .load(game.getThumbnailUrl())
                 .fit()
                 .into(holder.thumbnail);
     }

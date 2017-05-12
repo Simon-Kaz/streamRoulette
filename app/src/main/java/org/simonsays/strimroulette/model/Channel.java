@@ -5,18 +5,18 @@ package org.simonsays.strimroulette.model;
  */
 public class Channel {
 
-    public String status;
-    public String broadcasterLanguage;
-    public String display_name;
-    public String game;
-    public String language;
-    public String name;
-    public String logo;
-    public String video_banner;
-    public String profile_banner;
-    public Boolean partner;
-    public String url;
-    public Integer followers;
+    private String status;
+    private String broadcasterLanguage;
+    private String display_name;
+    private String game;
+    private String language;
+    private String name;
+    private String logo;
+    private String video_banner;
+    private String profile_banner;
+    private Boolean partner;
+    private String url;
+    private Integer followers;
 
     @Override
     public String toString() {

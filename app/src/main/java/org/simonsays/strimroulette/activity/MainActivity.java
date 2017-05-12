@@ -30,10 +30,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
-    // number of tabs
-    private static final int NUM_ITEMS = 2;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     private int[] tabIcons = {
             R.drawable.ic_videogame_asset,
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -90,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class GameOverview {
 
-    public Integer viewers;
-    public Integer channels;
+    private Integer viewers;
+    private Integer channels;
 
     @SerializedName("game")
-    public GameDetails gameDetails;
+    private GameDetails gameDetails;
 
     public void setViewers(int viewers) {
         this.viewers = viewers;

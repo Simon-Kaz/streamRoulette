@@ -5,11 +5,27 @@ package org.simonsays.strimroulette.model;
  */
 public class Stream {
 
-    public String game;
-    public Integer viewers;
-    public Integer video_height;
-    public Float average_fps;
-    public Channel channel;
+    private String game;
+    private Integer viewers;
+    private Integer video_height;
+    private Float average_fps;
+    private Channel channel;
+
+    public String getGame() {
+        return game;
+    }
+
+    public Integer getViewers() {
+        return viewers;
+    }
+
+    public Integer getVideo_height() {
+        return video_height;
+    }
+
+    public Float getAverage_fps() {
+        return average_fps;
+    }
 
     public Channel getChannel() {
         return channel;
@@ -22,28 +38,44 @@ public class Stream {
 
     public class Channel {
 
-        public Boolean mature;
-        public String status;
-        public String broadcaster_language;
-        public String display_name;
-        public String game;
-        public String language;
-        public Integer id;
-        public String name;
-        public String created_at;
-        public String updated_at;
-        public String logo;
-        public String video_banner;
-        public String profile_banner;
-        public String profile_banner_background_color;
-        public Boolean partner;
-        public String url;
-        public Integer views;
-        public Integer followers;
+        private Boolean mature;
+        private String status;
+        private String broadcaster_language;
+        private String display_name;
+        private String game;
+        private String language;
+        private Integer id;
+        private String name;
+        private String created_at;
+        private String updated_at;
+        private String logo;
+        private String video_banner;
+        private String profile_banner;
+        private String profile_banner_background_color;
+        private Boolean partner;
+        private String url;
+        private Integer views;
+        private Integer followers;
 
         @Override
         public String toString() {
             return display_name + " broadcasting " + game;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getDisplayName() {
+            return display_name;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

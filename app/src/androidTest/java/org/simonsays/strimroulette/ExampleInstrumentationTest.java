@@ -5,12 +5,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.simonsays.strimroulette.utils.http.HttpUtils;
 
 
 import static org.junit.Assert.*;

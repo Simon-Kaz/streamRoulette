@@ -22,7 +22,7 @@ import org.simonsays.strimroulette.adapter.GamesAdapter;
 import org.simonsays.strimroulette.model.Game;
 import org.simonsays.strimroulette.model.GameDetails;
 import org.simonsays.strimroulette.model.GameOverview;
-import org.simonsays.strimroulette.model.TopGamesResp;
+import org.simonsays.strimroulette.model.TopGamesResponse;
 import org.simonsays.strimroulette.rest.ApiClient;
 import org.simonsays.strimroulette.rest.TwitchService;
 
@@ -60,42 +60,11 @@ public class GamesFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         loadGames();
         return rootView;
     }
-
-
-//    private void prepareGames() {
-//        String[] covers = new String[]{
-//                R.drawable.thumb1,
-//                R.drawable.thumb2,
-//                R.drawable.thumb3,
-//                R.drawable.thumb4,
-//                R.drawable.thumb5,
-//                R.drawable.thumb6};
-//
-//        Game a = new Game("League Of Legends", 113888, 1509,covers[0]);
-//        gameList.add(a);
-//
-//        a = new Game("Hearthstone: Heroes of Warcraft", 78785, 295,covers[1]);
-//        gameList.add(a);
-//
-//        a = new Game("Overwatch", 60060, 1580,covers[2]);
-//        gameList.add(a);
-//
-//        a = new Game("Counter Strike: Global Offensive", 46164, 916,covers[3]);
-//        gameList.add(a);
-//
-//        a = new Game("Dota 2", 38674, 497,covers[4]);
-//        gameList.add(a);
-//
-//        a = new Game("Call of Duty: Black Ops III", 12448, 1052,covers[5]);
-//        gameList.add(a);
-//
-//        adapter.notifyDataSetChanged();
-//    }
 
     /**
      * RecyclerView item decoration - give equal margin around grid item
@@ -146,21 +115,21 @@ public class GamesFragment extends Fragment {
 
     public void loadGames() {
         TwitchService twitchService = ApiClient.getClient().create(TwitchService.class);
-        final Call<TopGamesResp> topGamesCall =
-                twitchService.topGamesResp(100);
+        final Call<TopGamesResponse> topGamesCall =
+                twitchService.topGamesResponse(100);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
-        topGamesCall.enqueue(new Callback<TopGamesResp>() {
+        topGamesCall.enqueue(new Callback<TopGamesResponse>() {
             @Override
-            public void onResponse(Call<TopGamesResp> call, Response<TopGamesResp> response) {
+            public void onResponse(Call<TopGamesResponse> call, Response<TopGamesResponse> response) {
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
-                    TopGamesResp topGamesResp = response.body();
-                    List<GameOverview> gameOverviewList = topGamesResp.getGameOverview();
+                    TopGamesResponse topGamesResponse = response.body();
+                    List<GameOverview> gameOverviewList = topGamesResponse.getGameOverview();
                     gameList = new ArrayList<>();
 
-                    for (GameOverview gameOverview: gameOverviewList) {
+                    for (GameOverview gameOverview : gameOverviewList) {
                         int channelCount = gameOverview.getChannels();
                         int viewerCount = gameOverview.getViewers();
 
@@ -180,7 +149,7 @@ public class GamesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TopGamesResp> call, Throwable t) {
+            public void onFailure(Call<TopGamesResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 showErrorSnackbar();
             }

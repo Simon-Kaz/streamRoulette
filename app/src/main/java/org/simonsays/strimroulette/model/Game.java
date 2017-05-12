@@ -1,54 +1,56 @@
 package org.simonsays.strimroulette.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by szymonkaz on 29/05/2016.
  */
 
 public class Game {
-    private String name;
-    private int numOfViewers;
-    private int numOfChannels;
-    private String thumbnail;
 
-    public Game(){
+    @SerializedName("name")
+    private String title;
+
+    private int viewerCount;
+    private int channelCount;
+    private String thumbnailUrl;
+
+    public Game(String name, int viewerCount, int channelCount, String thumbnailUrl) {
+        this.title = name;
+        this.viewerCount = viewerCount;
+        this.channelCount = channelCount;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Game(String name, int numOfViewers, int numOfChannels, String thumbnail) {
-        this.name = name;
-        this.numOfViewers = numOfViewers;
-        this.numOfChannels = numOfChannels;
-        this.thumbnail = thumbnail;
+    public String getTitle() {
+        return title;
     }
 
-    public String getName() {
-        return name;
+    public int getViewerCount() {
+        return viewerCount;
     }
 
-    public int getNumOfViewers() {
-        return numOfViewers;
+    public int getChannelCount() {
+        return channelCount;
     }
 
-    public int getNumOfChannels() {
-        return numOfChannels;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setViewerCount(int viewerCount) {
+        this.viewerCount = viewerCount;
     }
 
-    public void setNumOfViewers(int numOfViewers) {
-        this.numOfViewers = numOfViewers;
+    public void setChannelCount(int channelCount) {
+        this.channelCount = channelCount;
     }
 
-    public void setNumOfChannels(int numOfChannels) {
-        this.numOfChannels = numOfChannels;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }

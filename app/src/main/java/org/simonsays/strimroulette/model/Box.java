@@ -2,6 +2,11 @@ package org.simonsays.strimroulette.model;
 
 public class Box {
 
+    private String large;
+    private String medium;
+    private String small;
+    private String template;
+
     public String getLarge() {
         return large;
     }
@@ -17,10 +22,5 @@ public class Box {
     public String getTemplate() {
         return template;
     }
-
-    public String large;
-    public String medium;
-    public String small;
-    public String template;
 
 }
