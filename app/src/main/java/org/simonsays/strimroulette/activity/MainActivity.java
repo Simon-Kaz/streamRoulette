@@ -26,11 +26,15 @@ import org.simonsays.strimroulette.fragment.SettingsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TabLayout tabLayout;
+    @BindView(R.id.viewpager) private ViewPager viewPager;
+    @BindView(R.id.tabs) private TabLayout tabLayout;
+    @BindView(R.id.tab_img) ImageView icon;
+    @BindView(R.id.tab_text) TextView title;
 
     private int[] tabIcons = {
             R.drawable.ic_videogame_asset,
@@ -46,15 +50,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        ButterKnife.bind(this);
         setContentView(R.layout.activity_main);
         initViews();
     }
 
     private void initViews() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
     }
@@ -77,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private RelativeLayout getRelativeLayout(String text, int imageResource) {
         RelativeLayout countTab = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-
-        ImageView icon = (ImageView) countTab.findViewById(R.id.tab_img);
-        TextView title = (TextView) countTab.findViewById(R.id.tab_text);
 
         icon.setImageResource(imageResource);
         title.setText(text);

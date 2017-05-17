@@ -15,12 +15,14 @@ import org.simonsays.strimroulette.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by szymonkaz on 29/05/2016.
  */
 
 public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder> {
-
     private Context mContext;
     private List<Game> gameList;
 
@@ -30,16 +32,14 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, viewerCount, channelCount;
-        private ImageView thumbnail;
-
+        @BindView(R.id.title) private TextView title;
+        @BindView(R.id.viewer_count) private TextView viewerCount;
+        @BindView(R.id.channel_count) private TextView channelCount;
+        @BindView(R.id.thumbnail) private ImageView thumbnail;
 
         private MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            viewerCount = (TextView) view.findViewById(R.id.viewer_count);
-            channelCount = (TextView) view.findViewById(R.id.channel_count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            ButterKnife.bind(this, view);
         }
     }
 

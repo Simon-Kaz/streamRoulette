@@ -35,47 +35,4 @@ public class Stream {
     public String toString() {
         return game + " broadcasted for " + viewers;
     }
-
-    public class Channel {
-
-        private Boolean mature;
-        private String status;
-        private String broadcaster_language;
-        private String display_name;
-        private String game;
-        private String language;
-        private Integer id;
-        private String name;
-        private String created_at;
-        private String updated_at;
-        private String logo;
-        private String video_banner;
-        private String profile_banner;
-        private String profile_banner_background_color;
-        private Boolean partner;
-        private String url;
-        private Integer views;
-        private Integer followers;
-
-        @Override
-        public String toString() {
-            return display_name + " broadcasting " + game;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public String getDisplayName() {
-            return display_name;
-        }
-
-        public String getLogo() {
-            return logo;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
 }

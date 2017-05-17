@@ -22,4 +22,20 @@ public class Channel {
     public String toString() {
         return display_name + " broadcasting " + game;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getDisplayName() {
+        return display_name;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
