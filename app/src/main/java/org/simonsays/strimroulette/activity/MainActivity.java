@@ -3,6 +3,7 @@ package org.simonsays.strimroulette.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +32,8 @@ import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.viewpager) private ViewPager viewPager;
-    @BindView(R.id.tabs) private TabLayout tabLayout;
-    @BindView(R.id.tab_img) ImageView icon;
-    @BindView(R.id.tab_text) TextView title;
+    @BindView(R.id.viewpager) ViewPager viewPager;
+    @BindView(R.id.tabs) TabLayout tabLayout;
 
     private int[] tabIcons = {
             R.drawable.ic_videogame_asset,
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        ButterKnife.bind(this);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initViews();
     }
 
@@ -80,13 +79,16 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout getRelativeLayout(String text, int imageResource) {
         RelativeLayout countTab = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
 
+        TextView title = (TextView) countTab.findViewById(R.id.tab_text);
+        ImageView icon = (ImageView) countTab.findViewById(R.id.tab_img);
+
         icon.setImageResource(imageResource);
         title.setText(text);
         return countTab;
     }
 
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        void addFragment(Fragment fragment, String title) {
+        public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

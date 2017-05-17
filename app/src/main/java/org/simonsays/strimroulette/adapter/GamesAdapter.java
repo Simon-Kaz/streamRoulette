@@ -32,10 +32,10 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.title) private TextView title;
-        @BindView(R.id.viewer_count) private TextView viewerCount;
-        @BindView(R.id.channel_count) private TextView channelCount;
-        @BindView(R.id.thumbnail) private ImageView thumbnail;
+        @BindView(R.id.title) TextView title;
+        @BindView(R.id.viewer_count) TextView viewerCount;
+        @BindView(R.id.channel_count) TextView channelCount;
+        @BindView(R.id.thumbnail) ImageView thumbnail;
 
         private MyViewHolder(View view) {
             super(view);

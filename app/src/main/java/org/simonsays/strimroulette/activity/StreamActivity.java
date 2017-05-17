@@ -43,14 +43,14 @@ import retrofit2.Response;
 public class StreamActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = StreamActivity.class.getSimpleName();
-    @BindView(R.id.video_player) private EMVideoView emVideoView;
-    @BindView(R.id.tool_bar) private Toolbar toolbar;
-    @BindView(R.id.progress_bar) private ProgressBar progressBar;
-    @BindView(R.id.stream_info) private LinearLayout streamInfo;
-    @BindView(R.id.game_title_textView) private TextView game_title_textView;
-    @BindView(R.id.title_textView) private TextView stream_title_textView;
-    @BindView(R.id.channel_name_textView) private TextView channel_name_textView;
-    @BindView(R.id.viewer_count_textView) private TextView viewer_count_textView;
+    @BindView(R.id.video_player) EMVideoView emVideoView;
+    @BindView(R.id.tool_bar) Toolbar toolbar;
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
+    @BindView(R.id.stream_info) LinearLayout streamInfo;
+    @BindView(R.id.game_title_textView) TextView game_title_textView;
+    @BindView(R.id.title_textView) TextView stream_title_textView;
+    @BindView(R.id.channel_name_textView) TextView channel_name_textView;
+    @BindView(R.id.viewer_count_textView) TextView viewer_count_textView;
 
     private ArrayList<String> likedList = new ArrayList<>();
 
@@ -241,5 +241,6 @@ public class StreamActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
     }
 }
