@@ -3,7 +3,6 @@ package org.simonsays.strimroulette.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,8 +31,10 @@ import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
 
     private int[] tabIcons = {
             R.drawable.ic_videogame_asset,
@@ -79,11 +80,10 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout getRelativeLayout(String text, int imageResource) {
         RelativeLayout countTab = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
 
-        TextView title = (TextView) countTab.findViewById(R.id.tab_text);
-        ImageView icon = (ImageView) countTab.findViewById(R.id.tab_img);
+        TabViewHolder tabViewHolder = new TabViewHolder(countTab);
 
-        icon.setImageResource(imageResource);
-        title.setText(text);
+        tabViewHolder.icon.setImageResource(imageResource);
+        tabViewHolder.title.setText(text);
         return countTab;
     }
 
@@ -144,5 +144,16 @@ public class MainActivity extends AppCompatActivity {
     public void launchStreamActivity(View view) {
         Intent intent = new Intent(this, StreamActivity.class);
         startActivity(intent);
+    }
+
+    class TabViewHolder {
+        @BindView(R.id.tab_text)
+        TextView title;
+        @BindView(R.id.tab_img)
+        ImageView icon;
+
+        TabViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
